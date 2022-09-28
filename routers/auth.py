@@ -8,5 +8,5 @@ router = APIRouter(
 
 
 @router.get("/login", status_code=status.HTTP_200_OK)
-def login(username, password):
+async def login(username, password):
     return auth.login(username, password)
