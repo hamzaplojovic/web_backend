@@ -7,5 +7,5 @@ db = deta.Base("users")
 
 def login(username, password):
     user = db.fetch({"username": username, "password": sha256(
-        password.encode("utf-8")).hexdigest()})
+        password.encode("utf-8")).hexdigest()}).items[0]
     return 200 if user else 404

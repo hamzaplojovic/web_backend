@@ -30,6 +30,7 @@ def create_user(request):
     request.city = location_info["city"]
     request.avatar = httpx.get(
         f"https://api.github.com/users/{request.github}").json()["avatar_url"]
+    request.is_active = False
     return db.put(dict(request), key=request.username)
 
 
