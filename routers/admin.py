@@ -10,9 +10,9 @@ router = APIRouter(
 
 @router.get("/activate", status_code=status.HTTP_200_OK)
 async def activate(username: str):
-    return admin.activate_user(username, True)
+    return admin.user_action(username, True)
 
 
 @router.get("/deactivate", status_code=status.HTTP_200_OK)
 async def deactivate(username: str):
-    return admin.activate_user(username, False)
+    return admin.user_action(username, False)
