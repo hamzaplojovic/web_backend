@@ -25,7 +25,7 @@ def create_user(request):
     request.password = sha256(request.password.encode("utf-8")).hexdigest()
     request.flag = "rs"
     ip = getIp()
-    location_info = httpx.get(f"http://ip-api.com/json/89.216.152.4").json()
+    location_info = httpx.get(f"http://ip-api.com/json/{ip}").json()
     request.country = location_info["country"]
     request.city = location_info["city"]
     request.avatar = httpx.get(
