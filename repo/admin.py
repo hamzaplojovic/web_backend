@@ -14,4 +14,4 @@ def user_action(username, value):
 def login(username, password):
     user = db.fetch({"username": username, "password": sha256(
         password.encode("utf-8")).hexdigest()}).items
-    return 200 if user[0]["role"] == "admin" else 404
+    return 200 if user[0]["role"] == "Admin" else 404
