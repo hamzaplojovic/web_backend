@@ -1,9 +1,9 @@
 from deta import Deta
 from hashlib import sha256
+import os
 
-deta = Deta("a063wuxg_k8zsfQrTEriaLdJwXbGRrE5DfcQYuaXd")
+deta = Deta(os.getenv("DETA_PROJECT_KEY"))
 db = deta.Base("users")
-
 
 def user_action(username, value):
     user = db.fetch({"username": username}).items[0]
