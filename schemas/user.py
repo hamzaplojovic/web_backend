@@ -9,9 +9,11 @@ class UserBase(BaseModel):
     github: str
     email: str
     age: str
-    status: str
-    is_active: str
+    job: str
     role: str
+    status:str
+    is_active: str
+
 
 
 class User(UserBase):

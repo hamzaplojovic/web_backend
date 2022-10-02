@@ -16,6 +16,7 @@ def create_user(user: user.User):
     user.languages = github.get_github_language_percentages(user.github)
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
     user.is_active = False
+    user.status = "on hold"
 
     return db.put(dict(user), key=user.email)
 
