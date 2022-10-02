@@ -13,7 +13,7 @@ def get_github_language_percentages(username):
     return sorted(
         percentages, key=lambda d: d['percentage'])[::-1][0:3]
 
-def get_github_avatar_url(username):
+def get_github_avatar_url(username): 
     return httpx.get(
-        f"https://api.github.com/users/{user.github}").json()["avatar_url"]
+        f"https://api.github.com/users/{username}").json()["avatar_url"]
     
