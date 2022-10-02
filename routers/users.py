@@ -15,6 +15,7 @@ async def get_all_users():
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(request: user.User):
+    # TODO: add valdiation where is needed
     return users.create_user(request)
 
 

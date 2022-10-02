@@ -1,10 +1,11 @@
 from deta import Deta
 from hashlib import sha256
 import httpx
-from collections import Counter
-from .getip import getIp
+from schemas import user
+from utils import github
 
-deta = Deta("a063wuxg_k8zsfQrTEriaLdJwXbGRrE5DfcQYuaXd")
+
+deta = Deta(os.getenv("DETA_PROJECT_KEY"))
 db = deta.Base("users")
 
 
@@ -12,29 +13,19 @@ def get_all():
     return db.fetch().items
 
 
-def create_user(request):
-    percentages = []
-    languages = [x["language"] for x in httpx.get(
-        f"https://api.github.com/users/{request.github}/repos").json()]
+def create_user(user: user.User):
+    user.avatar = httpx.get(
+        f"https://api.github.com/users/{user.github}").json()["avatar_url"]
+    user.languages = github.get_github_language_percentages(user.github)
+    
+    user.password = sha256(user.password.encode("utf-8")).hexdigest()
 
-    for name, pct in {x: int(float(y) / len(languages) * 100)
-                      for x, y in Counter(languages).items()}.items():
-        percentages.append({"language": name, "percentage": pct})
-    request.languages = sorted(
-        percentages, key=lambda d: d['percentage'])[::-1][0:3]
-    request.password = sha256(request.password.encode("utf-8")).hexdigest()
-    request.flag = "rs"
-    ip = getIp()
-    location_info = httpx.get(f"http://ip-api.com/json/{ip}").json()
-    request.country = location_info["country"]
-    request.city = location_info["city"]
-    request.avatar = httpx.get(
-        f"https://api.github.com/users/{request.github}").json()["avatar_url"]
-    request.is_active = False
-    return db.put(dict(request), key=request.username)
+        
+    user.is_active = False
+    return db.put(dict(user), key=user.username)
 
 
-def find_user(username):
+def find_user_by_username(username):
     user = db.get(username)
     return user or 404
 
