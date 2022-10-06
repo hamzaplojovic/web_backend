@@ -1,5 +1,4 @@
 from hashlib import sha256
-import os
 from deta import Base
 
 db = Base("users")
@@ -7,7 +6,7 @@ db = Base("users")
 def user_action(username, value):
     user = db.fetch({"username": username}).items[0]
     user["is_active"] = value
-    return db.put(user, key=user["username"])
+    return db.put(user, key=user["email"])
 
 
 def login(username, password):
