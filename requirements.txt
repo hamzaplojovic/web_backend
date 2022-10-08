@@ -3,3 +3,5 @@ fastapi
 pydantic
 python-jose
 httpx
+pydantic[email]
+fastapi-mail
