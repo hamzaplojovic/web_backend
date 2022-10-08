@@ -38,19 +38,19 @@ def read_all_items():
 
 def create_users():
     for x in test_users:
-        r = httpx.post("https://centarnit.deta.dev/users/", json=x, headers=headers)
+        httpx.post("https://centarnit.deta.dev/users/", json=x, headers=headers)
     return f"Users created: {colored('status: 200', 'green')}"
 
   
 def change_users():
     for x in test_users:
         x["job"] = "Linux Kernel Head"
-        r = httpx.put("https://centarnit.deta.dev/users/"+x["username"], json=x, headers=headers)
+        httpx.put("https://centarnit.deta.dev/users/"+x["username"], json=x, headers=headers)
     return f"Users changed: {colored('status: 200', 'green')}"
 
 def find_users_by_username():
     for x in test_users:
-        r = httpx.get("https://centarnit.deta.dev/users/"+x["username"])
+        httpx.get("https://centarnit.deta.dev/users/"+x["username"])
     return f"User found: {colored('status: 200', 'green')}"
 
 
@@ -62,11 +62,15 @@ def delete_users():
 
 usernames = "\n"+"\n".join([x["username"] for x in test_users])
 
-print(f"Testing for: {colored(usernames, 'green')}")
-print()
-read_all_items()
-print(create_users())
-print(change_users())
-print(find_users_by_username())
-print(delete_users())
-print()
+def main():
+    print(f"Testing for: {colored(usernames, 'green')}")
+    print()
+    read_all_items()
+    print(create_users())
+    print(change_users())
+    print(find_users_by_username())
+    print(delete_users())
+    print()
+
+if __name__ == "__main__":
+    main()

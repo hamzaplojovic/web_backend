@@ -16,7 +16,8 @@ def create_user(user: user.User):
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
     user.is_active = False
     user.status = "on hold"
-    return db.put(dict(user), key=user.username)
+    db.put(dict(user), key=user.username)
+    return user
 
 
 
@@ -25,7 +26,8 @@ def find_user_by_username(username):
     return user or 404
 
 def change_user(user: user.User):
-    return db.put(dict(user), key=user.username)
+    db.put(dict(user), key=user.username)
+    return user
 
 
 def delete_user(username):
