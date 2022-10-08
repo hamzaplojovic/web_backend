@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status,HTTPException
 from repo import users
 from schemas import user
-from validation import user_creation
+from utils.validation import user_creation
 
 router = APIRouter(
     prefix="/users",
