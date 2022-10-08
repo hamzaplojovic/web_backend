@@ -1,7 +1,8 @@
 from hashlib import sha256
 from deta import Base
+from db import deta_db
 
-db = Base("users")
+db = deta_db.connect_to_deta_db("users")
 
 def user_action(username, value):
     user = db.fetch({"username": username}).items[0]

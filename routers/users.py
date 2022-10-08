@@ -29,7 +29,7 @@ async def find_user(username):
 
 @router.put("/{username}", status_code=status.HTTP_202_ACCEPTED)
 async def change_user(request: user.User):
-    if user_creation.validate_user_data(dict(request)) == 200:
+    if user_creation.validate_user_data(request) == 200:
         return users.change_user(request)
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Requirements not met!")
     
