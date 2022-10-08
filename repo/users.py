@@ -1,9 +1,10 @@
 from hashlib import sha256
 from schemas import user
 from utils import github
-from deta import Base
+from utils.constants import STATUS_ON_HOLD
+from db import deta_db
 
-db = Base("users")
+db = deta_db.connect_to_deta_db('users')
 
 
 def get_all():
@@ -15,7 +16,7 @@ def create_user(user: user.User):
     user.languages = github.get_github_language_percentages(user.github)
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
     user.is_active = False
-    user.status = "on hold"
+    user.status = STATUS_ON_HOLD
     db.put(dict(user), key=user.username)
     return user
 

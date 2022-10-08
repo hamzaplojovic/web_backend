@@ -1,7 +1,17 @@
-def validate_user_data(request):
-    requirements = ["username", "password", "full_name", "email", "github", "job"]
-    checked = []
-    for x in requirements:
-        if len(str(request[x]))>1:
-            checked.append(x)
-    return 200 if len(checked)==6 else 404
+from schemas.user import User
+
+def validate_user_data(user: User):
+    requirements = {
+        "username": True,
+        "password": True,
+        "full_name": True,
+        "email": True,
+        "github": True,
+        "job": True,
+    }
+    counter_field = 0
+    for field in requirements:
+        if user[field]:
+            counter_field += 1
+    
+    return 200 if counter_field == len(requirements) else 404

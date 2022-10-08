@@ -1,8 +1,7 @@
-from re import I
-from deta import Base
 from schemas import course
+from db import deta_db
 
-db = Base("courses")
+db = deta_db.connect_to_deta_db("courses")
 
 def get_all():
     return db.fetch().items
