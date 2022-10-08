@@ -6,7 +6,7 @@ db = Base("users")
 def user_action(username, value):
     user = db.fetch({"username": username}).items[0]
     user["is_active"] = value
-    return db.put(user, key=user["email"])
+    return db.put(user, key=user["username"])
 
 
 def login(username, password):

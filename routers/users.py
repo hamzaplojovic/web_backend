@@ -24,7 +24,7 @@ async def create_user(request: user.User):
 
 @router.get("/{username}", status_code=status.HTTP_200_OK)
 async def find_user(username):
-    return users.find_user(username)
+    return users.find_user_by_username(username)
 
 
 @router.put("/{username}", status_code=status.HTTP_202_ACCEPTED)
@@ -32,6 +32,7 @@ async def change_user(request: user.User):
     if user_creation.validate_user_data(dict(request)) == 200:
         return users.change_user(request)
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Requirements not met!")
+    
 
 
 @router.delete("/{username}", status_code=status.HTTP_204_NO_CONTENT)

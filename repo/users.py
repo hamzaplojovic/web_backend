@@ -16,7 +16,7 @@ def create_user(user: user.User):
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
     user.is_active = False
     user.status = "on hold"
-    return db.put(dict(user), key=user.email)
+    return db.put(dict(user), key=user.username)
 
 
 
