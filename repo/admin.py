@@ -4,9 +4,10 @@ from db import deta_db
 
 db = deta_db.connect_to_deta_db("users")
 
-def user_action(username, value):
+def user_action(username, is_active, status):
     user = db.fetch({"username": username}).items[0]
-    user["is_active"] = value
+    user["is_active"] = is_active
+    user["status"] = status
     return db.put(user, key=user["username"])
 
 

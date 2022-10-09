@@ -8,7 +8,7 @@ class UserBase(BaseModel):
     full_name: str
     github: str
     email: EmailStr
-    age: str
+    phone_number:str
     job: str
     role: str
     status:str

@@ -15,9 +15,9 @@ async def admin_login(username: str, password: str):
 
 @router.get("/activate", status_code=status.HTTP_200_OK)
 async def activate(username: str):
-    return admin.user_action(username, True)
+    return admin.user_action(username, True, "approved")
 
 
 @router.get("/deactivate", status_code=status.HTTP_200_OK)
 async def deactivate(username: str):
-    return admin.user_action(username, False)
+    return admin.user_action(username, False, "rejected")
