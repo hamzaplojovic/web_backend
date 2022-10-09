@@ -1,6 +1,7 @@
 import httpx
 from termcolor import colored
-import time
+
+HOME_URL = "https://centarnit.deta.dev"
 
 test_users = []
 
@@ -8,7 +9,41 @@ headers = {
     'accept': 'application/json',
 }
 
+class UserTest:
+    def __init__(self, url, user_list, headers):
+        self.url = url
+        self.user_list = user_list
+        self.headers = headers
 
+    def test_read_all_items(self):
+        r = httpx.get(self.url+"/users/")
+        checked = 0
+        for _ in range(len(r.json())):
+            checked +=1
+        return f"Approved users: {colored(str(checked), 'green')}"
+    
+    def test_create_users(self):
+        for x in self.user_list:
+            httpx.post("https://centarnit.deta.dev/users/", json=x, headers=headers)
+        return f"Users created: {colored(f'status: 200', 'green')}"
+    
+    def test_change_users(self):
+        for x in self.user_list:
+            x["job"] = "Linux Kernel Head"
+            httpx.put("https://centarnit.deta.dev/users/"+x["username"], json=x, headers=headers)
+        return f"Users changed: {colored('status: 200', 'green')}"
+    
+    def test_find_users_by_username(self):
+        for x in self.user_list:
+            httpx.get("https://centarnit.deta.dev/users/"+x["username"])
+        return f"User found: {colored('status: 200', 'green')}"
+
+    def test_delete_users(self):
+        for x in self.user_list:
+            httpx.delete("https://centarnit.deta.dev/users/"+x["username"])
+        return f"User deleted: {colored('status: 200', 'green')}"
+        
+    
 for x in range(10):
     test_users.append({
     'username': f'linustorvalds{str(x)}',
@@ -26,51 +61,16 @@ for x in range(10):
         'string',
     ],
 })
-    
-
-def read_all_items():
-    r = httpx.get("https://centarnit.deta.dev/users/")
-    for x in range(len(r.json())):
-        print(f"Approved users: {colored(str(x), 'green')}", end="\r")
-        time.sleep(0.1)
-    print()
-
-
-def create_users():
-    for x in test_users:
-        httpx.post("https://centarnit.deta.dev/users/", json=x, headers=headers)
-    return f"Users created: {colored('status: 200', 'green')}"
-
-  
-def change_users():
-    for x in test_users:
-        x["job"] = "Linux Kernel Head"
-        httpx.put("https://centarnit.deta.dev/users/"+x["username"], json=x, headers=headers)
-    return f"Users changed: {colored('status: 200', 'green')}"
-
-def find_users_by_username():
-    for x in test_users:
-        httpx.get("https://centarnit.deta.dev/users/"+x["username"])
-    return f"User found: {colored('status: 200', 'green')}"
-
-
-def delete_users():
-    for x in test_users:
-        httpx.delete("https://centarnit.deta.dev/users/"+x["username"])
-    return f"User deleted: {colored('status: 200', 'red')}"
-
-
-usernames = "\n"+"\n".join([x["username"] for x in test_users])
-
-def main():
-    print(f"Testing for: {colored(usernames, 'green')}")
-    print()
-    read_all_items()
-    print(create_users())
-    print(change_users())
-    print(find_users_by_username())
-    print(delete_users())
-    print()
 
 if __name__ == "__main__":
-    main()
+    test = UserTest(HOME_URL,test_users,headers)
+    print(test.test_read_all_items())
+    print(test.test_create_users())
+    print(test.test_change_users())
+    print(test.test_find_users_by_username())
+    print(test.test_delete_users())
+
+
+
+
+
