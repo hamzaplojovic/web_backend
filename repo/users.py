@@ -7,11 +7,11 @@ from db import deta_db
 db = deta_db.connect_to_deta_db('users')
 
 
-def get_all():
+def get_all() -> list:
     return db.fetch().items
 
 
-def create_user(user: user.User):        
+def create_user(user: user.User) -> user.User:        
     user.avatar = github.get_github_avatar_url(user.github)
     user.languages = github.get_github_language_percentages(user.github)
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
@@ -21,14 +21,14 @@ def create_user(user: user.User):
     return user
 
 
-def find_user_by_username(username):
+def find_user_by_username(username) -> user.User or int:
     user = db.get(username)
     return user or 404
 
-def change_user(user: user.User):
+def change_user(user: user.User) -> user.User:
     db.put(dict(user), key=user.username)
     return user
 
 
-def delete_user(username):
+def delete_user(username) -> str:
     return db.delete(username)
