@@ -21,7 +21,6 @@ def create_user(user: user.User):
     return user
 
 
-
 def find_user_by_username(username):
     user = db.get(username)
     return user or 404
