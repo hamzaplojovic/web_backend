@@ -19,6 +19,5 @@ class UserBase(BaseModel):
 class User(UserBase):
     avatar: Optional[str] = None
     languages: Optional[list] = None
-
-    class Config:
-        orm_mode = True
+    approved_at: Optional[str] = None
+    rejected_at: Optional[str] = None
