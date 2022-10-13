@@ -1,8 +1,11 @@
 from hashlib import sha256
-from schemas import user
 from utils import github
 from utils.constants import STATUS_ON_HOLD
 from db import deta_db
+from datetime import datetime
+from schemas import user
+
+
 
 db = deta_db.connect_to_deta_db('users')
 

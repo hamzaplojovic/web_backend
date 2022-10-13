@@ -5,3 +5,4 @@ python-jose
 httpx
 pydantic[email]
 pytest
+twilio
