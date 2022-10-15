@@ -1,6 +1,7 @@
 from db import deta_db
 from datetime import datetime
 from schemas import user
+from utils.constants import USER_STATUS
 
 db = deta_db.connect_to_deta_db("users")
 
@@ -12,10 +13,11 @@ class WriteApproval:
     def _approve_approval(self) -> int:
         self.user["approved_at"] = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
         self.user["rejected_at"] = ""
+        self.user["rejected_counter"] = 0
         return 200
 
     def _ban(self) -> int:
-        self.user["status"] = "banned"
+        self.user["status"] = USER_STATUS["BANNED"]
         self.user["approved_at"] = ""
         self.user["rejected_at"] = ""
         return 200
