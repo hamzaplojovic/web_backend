@@ -69,7 +69,7 @@ print(test.test_read_all_items())
 print(test.test_create_users())
 print(test.test_change_users())
 print(test.test_find_users_by_username())
-# print(test.test_delete_users())
+print(test.test_delete_users())
 
 
 
