@@ -19,7 +19,7 @@ def create_user(user: user.User) -> user.User:
     user.languages = github.get_github_language_percentages(user.github)
     user.password = sha256(user.password.encode("utf-8")).hexdigest()
     user.is_active = False
-    user.status = USER_STATUS["STATUS_ON_HOLD"]
+    user.status = USER_STATUS["ON_HOLD"]
     db.put(dict(user), key=user.username)
     return user
 
@@ -34,4 +34,5 @@ def change_user(user: user.User) -> user.User:
 
 
 def delete_user(username) -> str:
-    return db.delete(username)
+    db.delete(username)
+    return "User deleted"
