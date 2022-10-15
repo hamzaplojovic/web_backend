@@ -21,3 +21,4 @@ class User(UserBase):
     languages: Optional[list] = None
     approved_at: Optional[str] = None
     rejected_at: Optional[str] = None
+    rejected_counter:Optional[int] = 0
