@@ -1,7 +1,7 @@
 import httpx
 from termcolor import colored
 
-HOME_URL = "https://centarnit.deta.dev"
+HOME_URL="https://centarnit.deta.dev"
 
 
 test_users = []
@@ -43,6 +43,7 @@ class UserTest:
         for x in self.user_list:
             httpx.delete("https://centarnit.deta.dev/users/"+x["username"])
         return f"User deleted: {colored('status: 200', 'green')}"
+
         
     
 for x in range(10):
