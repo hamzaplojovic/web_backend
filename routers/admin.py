@@ -21,3 +21,7 @@ async def activate(username: str):
 @router.get("/deactivate", status_code=status.HTTP_200_OK)
 async def deactivate(username: str):
     return admin.user_action(username, False, "rejected")
+
+@router.get("/ban", status_code=status.HTTP_200_OK)
+async def ban(username:str):
+    return admin.ban(username)
