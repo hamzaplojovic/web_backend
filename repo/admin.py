@@ -1,11 +1,11 @@
 from hashlib import sha256
 from db import deta_db
-from utils.approve_actions import WriteApproval
+from .approve_actions import WriteApproval
 
 db = deta_db.connect_to_deta_db("users")
 
 def user_action(username, is_active, status):
-    user = db.fetch({"username": username}).items[0]
+    user = db.get(username)
     user["is_active"] = is_active
     user["status"] = status
     approval = WriteApproval(user, status)
