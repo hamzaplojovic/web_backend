@@ -1,12 +1,15 @@
-from fastapi import APIRouter, status
 from repo import admin
-from utils.constants import USER_STATUS
 from schemas import user
+from utils.constants import USER_STATUS
+from fastapi import APIRouter, status,Depends
+from utils.token import JWTBearer
+
 
 
 router = APIRouter(
     prefix="/admin",
-    tags=["Admin"]
+    tags=["Admin"],
+    dependencies=[Depends(JWTBearer("admin"))]
 )
 
 

@@ -9,3 +9,6 @@ USER_ROLES = {
     "INSTRUCTOR":"instructor",
     "STUDENT":"student"
 }
+SECRET_KEY="lemoncode21"
+ALGORITHM="HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES=30

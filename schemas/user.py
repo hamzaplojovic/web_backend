@@ -16,6 +16,7 @@ class UserBase(BaseModel):
 
 
 
+
 class User(UserBase):
     avatar: Optional[str] = None
     languages: Optional[list] = None
@@ -23,5 +24,5 @@ class User(UserBase):
     rejected_at: Optional[str] = None
     rejected_counter:Optional[int] = 0
 
-class ShowUser(User):
-    password: Optional[str] = ""
+
+    
