@@ -4,3 +4,8 @@ USER_STATUS = {
     "REJECTED": "rejected",
     "BANNED": "banned"
 }
+USER_ROLES = {
+    "ADMIN":"admin",
+    "INSTRUCTOR":"instructor",
+    "STUDENT":"student"
+}
