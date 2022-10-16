@@ -3,13 +3,13 @@ from db import deta_db
 
 db = deta_db.connect_to_deta_db("users")
 
-def validate_existence(username) -> int:
+def validate_existence(username) -> 200 or 404:
     user = db.fetch({"username":username}).items
     if len(user):
         return 404
     return 200
 
-def validate_user_data(user: User) -> int:
+def validate_user_data(user: User) -> 200 or 404:
     if validate_existence(user["username"]) == 200: 
         requirements = {
             "username": True,

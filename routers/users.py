@@ -23,7 +23,7 @@ async def create_user(request: user.User) -> user.User or dict:
 
 
 @router.get("/{username}", status_code=status.HTTP_200_OK)
-async def find_user(username) -> user.User or int:
+async def find_user(username) -> user.User or 404:
     return users.find_user_by_username(username)
 
 
