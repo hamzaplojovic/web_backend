@@ -5,7 +5,7 @@ TWILIO_ACCOUNT_SID = os.environ["TWILIO_ACCOUNT_SID"]
 TWILIO_ACCOUNT_TOKEN = os.environ["TWILIO_AUTH_TOKEN"]
 TWILIO_PHONE_NUMBER = os.environ["TWILIO_PHONE_NUMBER"]
 
-def twillio_send(contacts, context):
+def twillio_send(contacts, context) -> int:
     client = Client(TWILIO_ACCOUNT_SID,TWILIO_ACCOUNT_TOKEN )
 
     for x in contacts:
