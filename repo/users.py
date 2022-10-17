@@ -1,9 +1,8 @@
-from hashlib import sha256
 from utils import github
 from utils.constants import USER_STATUS
 from db import deta_db
-from datetime import datetime
 from schemas import user
+from utils.hashed import hashed_password
 
 
 
@@ -17,14 +16,14 @@ def get_all() -> list:
 def create_user(user: user.User) -> user.User:        
     user.avatar = github.get_github_avatar_url(user.github)
     user.languages = github.get_github_language_percentages(user.github)
-    user.password = sha256(user.password.encode("utf-8")).hexdigest()
+    user.password = hashed_password(user.password)
     user.is_active = False
     user.status = USER_STATUS["ON_HOLD"]
     db.put(dict(user), key=user.username)
     return user
 
 
-def find_user_by_username(username) -> user.User or int:
+def find_user_by_username(username:str) -> user.User or int:
     user = db.get(username)
     return user or 404
 
@@ -33,6 +32,10 @@ def change_user(user: user.User) -> user.User:
     return user
 
 
-def delete_user(username) -> str:
-    db.delete(username)
-    return "User deleted"
+def delete_user(username:str):
+    return db.delete(username)
+
+
+def login(username:str, password:str):
+    query =  db.fetch({"username":username, "password": hashed_password(password)}).items
+    return 200 if query[0] else 404

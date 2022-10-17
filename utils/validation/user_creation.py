@@ -3,7 +3,7 @@ from db import deta_db
 
 db = deta_db.connect_to_deta_db("users")
 
-def validate_existence(username) -> 200 or 404:
+def validate_existence(username:str) -> 200 or 404:
     user = db.fetch({"username":username}).items
     if len(user):
         return 404

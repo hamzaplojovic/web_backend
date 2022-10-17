@@ -10,8 +10,8 @@ def twillio_send(contacts, context) -> 200:
 
     for x in contacts:
         _ = client.messages.create(
-            body=context,
-            from_=TWILIO_PHONE_NUMBER,
-            to=x
-        )
+                body=context,
+                from_=TWILIO_PHONE_NUMBER,
+                to=x
+            )
     return 200

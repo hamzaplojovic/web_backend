@@ -1,3 +1,4 @@
+from typing import List
 from fastapi import APIRouter, status,HTTPException
 from repo import users
 from schemas import user
@@ -23,7 +24,7 @@ async def create_user(request: user.User) -> user.User or dict:
 
 
 @router.get("/{username}", status_code=status.HTTP_200_OK)
-async def find_user(username) -> user.User or 404:
+async def find_user(username:str) -> user.User or 404:
     return users.find_user_by_username(username)
 
 
@@ -32,7 +33,11 @@ async def change_user(request: user.User) -> user.User or dict:
     return users.change_user(request)
     
 
-
 @router.delete("/{username}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_user(username) -> str:
+async def delete_user(username:str):
     return users.delete_user(username)
+
+
+@router.get("/login", status_code=status.HTTP_200_OK)
+async def user_login(username:str, password:str):
+    return users.login(username, password)

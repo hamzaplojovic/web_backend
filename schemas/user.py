@@ -16,9 +16,13 @@ class UserBase(BaseModel):
 
 
 
+
 class User(UserBase):
     avatar: Optional[str] = None
     languages: Optional[list] = None
     approved_at: Optional[str] = None
     rejected_at: Optional[str] = None
     rejected_counter:Optional[int] = 0
+
+
+    

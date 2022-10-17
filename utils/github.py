@@ -1,7 +1,7 @@
 import httpx
 from collections import Counter
 
-def get_github_language_percentages(username) -> list:
+def get_github_language_percentages(username:str) -> list:
     percentages = []
     languages = [x["language"] for x in httpx.get(f"https://api.github.com/users/{username}/repos").json()]
 
@@ -10,6 +10,6 @@ def get_github_language_percentages(username) -> list:
 
     return sorted(percentages, key=lambda d: d['percentage'])[::-1][0:3]
 
-def get_github_avatar_url(username) -> str: 
+def get_github_avatar_url(username:str) -> str: 
     return httpx.get(f"https://api.github.com/users/{username}").json()["avatar_url"]
     

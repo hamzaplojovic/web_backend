@@ -1,12 +1,15 @@
-from fastapi import APIRouter, status
 from repo import admin
-from utils.constants import USER_STATUS
 from schemas import user
+from utils.constants import USER_STATUS
+from repo.role_checker import RoleChecker
+from fastapi import APIRouter, status,Depends
 
+allow_create_resource = RoleChecker(["admin"])
 
 router = APIRouter(
     prefix="/admin",
-    tags=["Admin"]
+    tags=["Admin"],
+    dependencies=[Depends(allow_create_resource)],
 )
 
 
