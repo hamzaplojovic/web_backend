@@ -6,7 +6,7 @@ from .approve_actions import WriteApproval
 
 db = deta_db.connect_to_deta_db("users")
 
-def user_action(username, is_active, status) -> user.User:
+def user_action(username:str, is_active:bool, status:str) -> user.User:
     user = db.get(username)
     user["is_active"] = is_active
     user["status"] = status
@@ -16,6 +16,6 @@ def user_action(username, is_active, status) -> user.User:
 
 
 
-def login(username, password) -> int:
+def login(username:str, password:str) -> int:
     user = db.fetch({"username": username, "password": hashed_password(password)}).items
     return 200 if user[0]["role"] == USER_ROLES["ADMIN"] else 404

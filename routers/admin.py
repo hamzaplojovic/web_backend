@@ -1,15 +1,15 @@
 from repo import admin
 from schemas import user
 from utils.constants import USER_STATUS
+from repo.role_checker import RoleChecker
 from fastapi import APIRouter, status,Depends
-from utils.token import JWTBearer
 
-
+allow_create_resource = RoleChecker(["admin"])
 
 router = APIRouter(
     prefix="/admin",
     tags=["Admin"],
-    dependencies=[Depends(JWTBearer("admin"))]
+    dependencies=[Depends(allow_create_resource)],
 )
 
 
