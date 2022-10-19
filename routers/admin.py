@@ -4,18 +4,19 @@ from utils.constants import USER_STATUS
 from repo.role_checker import RoleChecker
 from fastapi import APIRouter, status,Depends
 
-allow_create_resource = RoleChecker(["admin"])
+approved_roles = RoleChecker(["admin"])
+
 
 router = APIRouter(
     prefix="/admin",
     tags=["Admin"],
-    dependencies=[Depends(allow_create_resource)],
+    dependencies=[Depends(approved_roles)]
 )
 
 
-@router.get("/login", status_code=status.HTTP_200_OK)
-async def admin_login(username: str, password: str) -> 200 or 404:
-    return admin.login(username, password)
+# @router.get("/login", status_code=status.HTTP_200_OK)
+# async def admin_login(username: str, password: str) -> 200 or 404:
+#     return admin.login(username, password)
 
 
 @router.get("/activate/{username}", status_code=status.HTTP_200_OK)
