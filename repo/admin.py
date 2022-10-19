@@ -1,10 +1,13 @@
 from db import deta_db
 from schemas import user
-from utils.constants import USER_ROLES
 from utils.hashed import hashed_password
+from repo.role_checker import RoleChecker
 from .approve_actions import WriteApproval
 
+
 db = deta_db.connect_to_deta_db("users")
+allow_create_resource = RoleChecker(["admin"])
+
 
 def user_action(username:str, is_active:bool, status:str) -> user.User:
     user = db.get(username)
@@ -18,4 +21,4 @@ def user_action(username:str, is_active:bool, status:str) -> user.User:
 
 def login(username:str, password:str) -> int:
     user = db.fetch({"username": username, "password": hashed_password(password)}).items
-    return 200 if user[0]["role"] == USER_ROLES["ADMIN"] else 404
+    return 200 if allow_create_resource(user[0]["role"]) else 404
