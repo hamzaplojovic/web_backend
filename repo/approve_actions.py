@@ -1,6 +1,6 @@
 from db import deta_db
-from datetime import datetime
 from schemas import user
+from datetime import datetime
 from utils.constants import USER_STATUS
 
 db = deta_db.connect_to_deta_db("users")

@@ -5,6 +5,7 @@ class CourseBase(BaseModel):
     description:str
     plan:list
     instructors:list
+    students:list
     time:str
     appointment:str
     cover_image:str

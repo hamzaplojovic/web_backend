@@ -1,15 +1,12 @@
-from typing import List
-from fastapi import APIRouter, status,HTTPException
 from repo import users
 from schemas import user
 from utils.validation import user_creation
+from fastapi import APIRouter, status,HTTPException
 
 router = APIRouter(
     prefix="/users",
     tags=["Users"]
 )
-
-    
 
 @router.get("/", status_code=status.HTTP_200_OK)
 async def get_all_users() -> list:

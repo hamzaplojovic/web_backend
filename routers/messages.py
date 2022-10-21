@@ -1,6 +1,7 @@
-from fastapi import APIRouter,status
-from schemas import message
 from repo import messages
+from schemas import message
+from fastapi import APIRouter,status
+
 
 router = APIRouter(
     prefix="/notify",

@@ -1,8 +1,8 @@
 deta
 fastapi
 pydantic
-python-jose
 httpx
 pydantic[email]
 pytest
 twilio
+python-multipart
