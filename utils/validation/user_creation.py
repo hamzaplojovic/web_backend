@@ -1,5 +1,5 @@
-from schemas.user import User
 from db import deta_db
+from schemas.user import User
 
 db = deta_db.connect_to_deta_db("users")
 

@@ -1,7 +1,10 @@
 from repo import users
 from schemas import user
 from utils.validation import user_creation
-from fastapi import APIRouter, status,HTTPException
+from fastapi import APIRouter, Depends, status,HTTPException
+from repo.role_checker import RoleChecker
+
+allowed_roles = RoleChecker(["admin"])
 
 router = APIRouter(
     prefix="/users",
@@ -26,12 +29,12 @@ async def find_user(username:str) -> user.User or 404:
 
 
 @router.put("/{username}", status_code=status.HTTP_202_ACCEPTED)
-async def change_user(request: user.User) -> user.User or dict:
+async def change_user(request: user.User, _ = Depends(allowed_roles)) -> user.User or dict:
     return users.change_user(request)
     
 
 @router.delete("/{username}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_user(username:str):
+async def delete_user(username:str, _ = Depends(allowed_roles)):
     return users.delete_user(username)
 
 

@@ -1,14 +1,14 @@
 from repo import courses
 from schemas import course
 from repo.role_checker import RoleChecker
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 
-allowed_roles = RoleChecker(["admin"])
-
+allowed_roles = RoleChecker(["admin", "instructor"])
 
 router = APIRouter(
     prefix="/courses",
     tags=["Courses"],
+    dependencies=[Depends(allowed_roles)]
 )
 
 @router.get("/", status_code=status.HTTP_200_OK)
