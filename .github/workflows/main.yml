@@ -1,0 +1,9 @@
+name: Test Action
+on: [push]
+jobs:
+  test-users:
+    runs-on: ubuntu-latest
+    name: Test users router
+    steps:
+      - name: Install dependencies
+        run: pip install -r requirements.txt
