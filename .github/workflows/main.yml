@@ -1,13 +1,22 @@
 name: Test Action
 on: [push]
 jobs:
-  test-users:
+  dependencies:
     runs-on: ubuntu-latest
-    name: Test users router
+    name: Install dependencies
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v4
       with:
         python-version: '3.9'
-        cache: 'pip' # caching pip dependencies
+        cache: 'pip'
     - run: pip install -r requirements.txt
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy on Deta
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: deta deploy
