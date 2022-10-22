@@ -6,4 +6,4 @@ jobs:
     name: Test users router
     steps:
       - name: Install dependencies
-        run: pwd
+        run: pip3 install -r requirements.txt
