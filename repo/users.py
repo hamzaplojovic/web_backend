@@ -1,10 +1,8 @@
-from utils import github
-from utils.constants import USER_STATUS
 from db import deta_db
 from schemas import user
+from utils import github
+from utils.constants import USER_STATUS
 from utils.hashed import hashed_password
-
-
 
 db = deta_db.connect_to_deta_db('users')
 

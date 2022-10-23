@@ -14,11 +14,6 @@ router = APIRouter(
 )
 
 
-# @router.get("/login", status_code=status.HTTP_200_OK)
-# async def admin_login(username: str, password: str) -> 200 or 404:
-#     return admin.login(username, password)
-
-
 @router.get("/activate/{username}", status_code=status.HTTP_200_OK)
 async def activate(username: str) -> user.User:
     return admin.user_action(username, True, USER_STATUS["APPROVED"])

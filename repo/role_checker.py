@@ -1,6 +1,6 @@
 from repo import auth
-from schemas import user
 from typing import List
+from schemas import user
 from fastapi import HTTPException,Depends
 
 class RoleChecker:
