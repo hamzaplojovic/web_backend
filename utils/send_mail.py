@@ -2,20 +2,20 @@ import ssl
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email_confirmation import code
 
 class Email:
     def __init__(self, sender, receiver, smtp_password):
             self.sender, self.receiver, self.smtp_password = sender, receiver, smtp_password
 
     def _parse_mail(self):
-        with open("email.html", "r") as f:
-            email = MIMEMultipart('alternative')
-            email["From"] = self.sender
-            email["To"] = self.receiver
-            email["Subject"] = "Confirm your email address"
-            html_part = MIMEText("".join(f.readlines()), 'html')
-            email.attach(html_part)
-            return email
+        email = MIMEMultipart('alternative')
+        email["From"] = self.sender
+        email["To"] = self.receiver
+        email["Subject"] = "Confirm your email address"
+        html_part = MIMEText(code, 'html')
+        email.attach(html_part)
+        return email
 
     def send_code(self) -> str:
         email = self._parse_mail()
