@@ -1,6 +1,8 @@
+import os
 from db import deta_db
 from schemas import user
 from utils import github
+from utils.send_mail import Email
 from utils.constants import USER_STATUS
 from utils.hashed import hashed_password
 
@@ -17,6 +19,8 @@ def create_user(user: user.User) -> user.User:
     user.password = hashed_password(user.password)
     user.is_active = False
     user.status = USER_STATUS["ON_HOLD"]
+    email = Email("hamzaplojovic9@gmail.com", user.email, os.environ["SMTP_PASSWORD"])
+    email.send_code()
     db.put(dict(user), key=user.username)
     return user
 
