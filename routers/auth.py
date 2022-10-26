@@ -15,3 +15,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @router.get("/me")
 async def users_me(current_user: user.User = Depends(auth.get_current_user)):
     return current_user["role"]
+
+@router.get("/code/{username}")
+async def approve_code(username):
+    return auth.approve_code(username)

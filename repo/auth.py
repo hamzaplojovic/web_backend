@@ -14,3 +14,10 @@ def get_current_user(username:str = Depends(oauth2_scheme)):
 def login(form_data: OAuth2PasswordRequestForm):
     user = db.get(form_data.username)
     return {"access_token": user["username"], "token_type": "bearer"}
+
+
+def approve_code(username:str) -> str:
+    user = db.get(username)
+    user["status"] = "received"
+    db.put(user, key=username)
+    return f"Approved {username} that has confirmed email address"

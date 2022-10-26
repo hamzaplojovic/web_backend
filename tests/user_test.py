@@ -48,13 +48,13 @@ class UserTest:
     
 for x in range(10):
     test_users.append({
-    'username': f'linustorvalds{str(x)}',
-    'password': 'Linus.123',
-    'full_name': 'Linus Torvalds',
-    'github': 'torvalds',
-    'email': 'linus@linux.com',
-    'age': 'string',
-    'job': 'Absolute Legend',
+    'username': f'plojovichamza{str(x)}',
+    'password': 'Hamza.1234',
+    'full_name': 'Hamza Plojovic',
+    'github': 'hamzaplojovic',
+    'email': 'hamzaplojovic@gmail.com',
+    'phone_number': '+381600390707',
+    'job': 'Full Stack Developer',
     'role': 'string',
     'status': 'string',
     'is_active': 'string',
