@@ -22,3 +22,4 @@ async def activate(username: str) -> user.User:
 @router.get("/deactivate/{username}", status_code=status.HTTP_200_OK)
 async def deactivate(username: str) -> user.User:
     return admin.user_action(username, False, USER_STATUS["REJECTED"])
+

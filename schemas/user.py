@@ -13,9 +13,7 @@ class UserBase(BaseModel):
     role: str
     status:str
     is_active: str
-
-
-
+    
 
 class User(UserBase):
     avatar: Optional[str] = None
