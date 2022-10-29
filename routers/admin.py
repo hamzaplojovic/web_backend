@@ -3,8 +3,10 @@ from schemas import user
 from utils.constants import USER_STATUS
 from repo.role_checker import RoleChecker
 from fastapi import APIRouter, status,Depends
+from fastapi.security import OAuth2PasswordBearer
 
 approved_roles = RoleChecker(["admin"])
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 
 router = APIRouter(
@@ -14,7 +16,7 @@ router = APIRouter(
 )
 
 
-@router.get("/activate/{username}", status_code=status.HTTP_200_OK)
+@router.get("/activate", status_code=status.HTTP_200_OK)
 async def activate(username: str) -> user.User:
     return admin.user_action(username, True, USER_STATUS["APPROVED"])
 
