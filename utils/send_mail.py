@@ -8,7 +8,7 @@ class Email:
     def __init__(self, sender, receiver, smtp_password):
             self.sender, self.receiver, self.smtp_password = sender, receiver, smtp_password
 
-    def _parse_mail(self):
+    def _parse_mail(self) -> MIMEMultipart:
         email = MIMEMultipart('alternative')
         email["From"] = self.sender
         email["To"] = self.receiver
