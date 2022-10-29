@@ -23,3 +23,6 @@ async def activate(username: str) -> user.User:
 async def deactivate(username: str) -> user.User:
     return admin.user_action(username, False, USER_STATUS["REJECTED"])
 
+@router.get("/instructor/{username}", status_code=status.HTTP_200_OK)
+async def make_instructor(username:str) -> user.User:
+    return admin.make_instructor(username)

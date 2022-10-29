@@ -11,4 +11,3 @@ class RoleChecker:
         if user["role"] not in self.allowed_roles:
             raise HTTPException(status_code=403, detail="Operation not permitted")
         return 200
-    
