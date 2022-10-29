@@ -1,8 +1,9 @@
-from db.deta_db import connect_to_deta_db
-from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
-from fastapi import Depends, Request
-from utils.jwt_handler import get_current,create_access_token
 from datetime import timedelta
+from fastapi import Depends, Request
+from db.deta_db import connect_to_deta_db
+from utils.jwt_handler import get_current,create_access_token
+from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
+
 
 db = connect_to_deta_db("users")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
@@ -25,24 +26,3 @@ def approve_code(username:str) -> str:
     user["status"] = "received"
     db.put(user, key=username)
     return f"Approved {username} that has confirmed email address"
-
-
-# from fastapi import Depends, Request
-# from datetime import timedelta
-# from db.deta_db import connect_to_deta_db
-# from fastapi.security import OAuth2PasswordRequestForm
-# from utils.jwt_handler import create_access_token,get_current
-# from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
-
-# db = connect_to_deta_db("users")
-# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
-
-# def login(form_data: OAuth2PasswordRequestForm = Depends()):
-
-
-# def approve_code(username:str) -> str:
-#     user = db.get(username)
-#     user["status"] = "received"
-#     db.put(user, key=username)
-#     return f"Approved {username} that has confirmed email address"

@@ -1,6 +1,6 @@
 import httpx
-from collections import Counter
 from .constants import COLORS
+from collections import Counter
 
 
 def get_github_language_percentages(username:str) -> list:

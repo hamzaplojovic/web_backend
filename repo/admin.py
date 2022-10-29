@@ -1,9 +1,9 @@
 from db import deta_db
 from schemas import user
+from utils.constants import USER_ROLES
 from utils.hashed import hashed_password
 from repo.role_checker import RoleChecker
 from .approve_actions import WriteApproval
-from utils.constants import USER_ROLES
 
 
 db = deta_db.connect_to_deta_db("users")

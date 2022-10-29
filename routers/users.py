@@ -1,8 +1,9 @@
 from repo import users
 from schemas import user
+from repo.role_checker import RoleChecker
 from utils.validation import user_creation
 from fastapi import APIRouter, Depends, status,HTTPException
-from repo.role_checker import RoleChecker
+
 
 allowed_roles = RoleChecker(["admin"])
 
@@ -41,3 +42,4 @@ async def delete_user(username:str, _ = Depends(allowed_roles)):
 @router.get("/login", status_code=status.HTTP_200_OK)
 async def user_login(username:str, password:str):
     return users.login(username, password)
+

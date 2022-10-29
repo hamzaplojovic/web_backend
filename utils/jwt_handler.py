@@ -1,8 +1,8 @@
 from jose import jwt
-from fastapi.security import OAuth2PasswordBearer
-from fastapi import Depends
-from datetime import datetime, timedelta
 from pydantic import BaseModel
+from datetime import datetime, timedelta
+from fastapi.security import OAuth2PasswordBearer
+
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
