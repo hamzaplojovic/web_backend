@@ -5,9 +5,9 @@ from fastapi.security import OAuth2PasswordBearer
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-ACCESS_TOKEN_EXPIRE_MINUTES = os.environ["ACCESS_TOKEN_EXPIRE_MINUTES"]
-ALGORITHM = os.environ["ALGORITHM"]
-SECRET_KEY = os.environ["SECRET_KEY"]
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ALGORITHM = os.environ["JWT_ALGORITHM"]
+SECRET_KEY = os.environ["JWT_SECRET_KEY"]
 
 
 def create_access_token(data: dict, expires_delta: timedelta or None = None):
