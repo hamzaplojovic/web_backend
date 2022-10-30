@@ -1,5 +1,5 @@
-from schemas import course
 from db import deta_db
+from schemas import course
 
 db = deta_db.connect_to_deta_db("courses")
 
