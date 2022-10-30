@@ -1,8 +1,8 @@
 import ssl
 import smtplib
+from email_confirmation import code
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email_confirmation import code
 
 class Email:
     def __init__(self, sender, receiver, smtp_password):

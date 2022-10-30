@@ -1,8 +1,7 @@
 from repo import users
 from schemas import user
 from repo.role_checker import RoleChecker
-from utils.validation import user_creation
-from fastapi import APIRouter, Depends, status,HTTPException
+from fastapi import APIRouter, Depends, status
 
 
 allowed_roles = RoleChecker(["admin"])
@@ -19,9 +18,7 @@ async def get_all_users() -> list:
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 async def create_user(request: user.User) -> user.User or dict:
-    if user_creation.validate_user_data(dict(request)) == 200:
-        return users.create_user(request)
-    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Requirements not met!")
+    return users.create_user(request)
 
 
 @router.get("/{username}", status_code=status.HTTP_200_OK)
