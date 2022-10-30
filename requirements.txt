@@ -7,3 +7,4 @@ pytest
 twilio
 python-multipart
 python-jose
+uvicorn[standard]
