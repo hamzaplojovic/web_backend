@@ -22,7 +22,7 @@ def _parse_user(username:str, is_active:bool, user_status:str):
 def user_action(username:str, is_active:bool, user_status:str) -> user.User:
     try:
         user = _parse_user(username, is_active, user_status)
-        return db.update(user, key=user["username"])
+        return db.put(user, key=user["username"])
     except:
         return UserExceptions.raise_conflict("Cannot apply action on user")
 

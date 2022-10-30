@@ -1,8 +1,8 @@
 from datetime import timedelta
 from fastapi import Depends, Request
 from db.deta_db import connect_to_deta_db
-from utils.jwt_handler import get_username_from_current_user,create_access_token
-from fastapi.security import OAuth2PasswordRequestForm,OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from utils.jwt_handler import get_username_from_current_user, create_access_token
 
 
 db = connect_to_deta_db("users")
