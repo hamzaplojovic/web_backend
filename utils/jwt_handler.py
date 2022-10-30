@@ -1,14 +1,8 @@
 from jose import jwt
-from pydantic import BaseModel
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 
-
-
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
-
-class TokenData(BaseModel):
-    username: str | None = None
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30 
 ALGORITHM = "HS256"
@@ -26,7 +20,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-def get_current(request):
+def get_username_from_current_user(request):
     payload = jwt.decode(request.headers['authorization'].
                          split(' ')[1], SECRET_KEY, algorithms=[ALGORITHM])
     return dict(payload)["username"]
