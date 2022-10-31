@@ -10,7 +10,6 @@ from utils.constants import USER_STATUS, USER_ROLES
 
 db = deta_db.connect_to_deta_db('users')
 
-
 def _parse_user(user:user.User):
     try:
         user.avatar = github.get_github_avatar_url(user.github)
