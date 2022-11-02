@@ -28,12 +28,17 @@ async def find_user(username:str) -> user.User or 404:
 
 @router.put("/{username}", status_code=status.HTTP_202_ACCEPTED)
 async def change_user(request: user.User, _ = Depends(allowed_roles)) -> user.User or dict:
-    return users.change_user(request)
+    return users.update_user(request)
     
 
 @router.delete("/{username}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_user(username:str, _ = Depends(allowed_roles)):
+async def soft_delete_user(username:str, _ = Depends(allowed_roles)):
     return users.delete_user(username)
+
+
+@router.delete("/", status_code=status.HTTP_204_NO_CONTENT)
+async def hard_delete_user(username:str, _ = Depends(allowed_roles)):
+    return users.hard_delete_user(username)
 
 
 @router.get("/login", status_code=status.HTTP_200_OK)

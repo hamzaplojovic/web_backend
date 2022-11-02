@@ -1,9 +1,9 @@
-from db import deta_db
+from db import db
 from schemas import user
 from datetime import datetime
 from utils.constants import USER_STATUS
 
-db = deta_db.connect_to_deta_db("users")
+db = db.connect_to_db("users")
 
 class WriteApproval:
     def __init__(self, user:user.User, status):
