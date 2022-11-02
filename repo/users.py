@@ -1,14 +1,14 @@
 import os
-from db import db
 from schemas import user
 from utils import github
 from utils.send_mail import Email
+from db.data_access import UsersLayer
 from utils.hashed import hashed_password
 from utils.validation import user_creation
 from utils.exceptions import UserExceptions
 from utils.constants import USER_STATUS, USER_ROLES
 
-db = db.connect_to_db('users')
+data_layer = UsersLayer
 
 def _parse_user(user:user.User):
     user.avatar = github.get_github_avatar_url(user.github)
@@ -27,7 +27,7 @@ def _parse_user(user:user.User):
 
 def get_all() -> list[dict]:
     try:
-        return [x for x in db.find({})]
+        return data_layer.get_all_users()
     except:
         return UserExceptions.raise_conflict("Cannot fetch users")
 
@@ -37,37 +37,31 @@ def create_user(user: user.User) -> user.User:
         return UserExceptions.raise_conflict("User already exists")
     try:
         parsed_user = _parse_user(user)
-        db.insert_one(parsed_user)
-        return parsed_user
+        return data_layer.create_user(parsed_user)
     except:
-        return UserExceptions.raise_conflict("Cannot create user")
-
+        parsed_user = _parse_user(user)
+        return data_layer.create_user(parsed_user)
 
 
 def find_user_by_username(username:str) -> user.User or int:
     try:
-        return db.find_one({"username":username})
+        return data_layer.get_user_by_username(username)
     except:
         return UserExceptions.raise_not_found("User not found")
 
 
 def update_user(user: user.User) -> user.User:
     try:
-        db.update_one({"username":user.username}, {
-            "$set": dict(user)
-        })
-        return user
+        return data_layer.update_user("username", dict(user))
+
     except:
         return UserExceptions.raise_conflict("Cannot update user")
 
 
+
 def delete_user(username:str) -> any:
     try:
-        db.update_one({"username":username},{
-            "$set":{
-                "is_active":False
-            }
-        })
+        return data_layer.update_user_part(username, "is_active", False) 
     except:
         return UserExceptions.raise_conflict("Cannot delete user")
 
@@ -75,8 +69,7 @@ def delete_user(username:str) -> any:
     
 def hard_delete_user(username:str) -> str:
     try:
-        db.delete_one({"username":username})
-        return f"User with username: {username} deleted"
+        return data_layer.delete_user(username)
     except:
         return UserExceptions.raise_conflict("Cannot delete user")
 
@@ -84,7 +77,6 @@ def hard_delete_user(username:str) -> str:
 
 def login(username:str, password:str) -> any:
     try:
-        user = db.find_one({"username":username, "password": hashed_password(password)})
-        return user
+        return data_layer.login(username, password)
     except:
         return UserExceptions.raise_not_found("User not found")
