@@ -6,7 +6,6 @@ from fastapi import APIRouter, status, Depends
 
 approved_roles = RoleChecker(["admin"])
 
-
 router = APIRouter(
     prefix="/admin",
     tags=["Admin"],
