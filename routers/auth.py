@@ -19,3 +19,7 @@ async def users_me(current_user: user.User = Depends(auth.get_current_user)):
 @router.get("/code/{username}")
 async def approve_code(username):
     return auth.approve_code(username)
+
+@router.get("/ip")
+async def get_ip():
+    return auth.get_ip()

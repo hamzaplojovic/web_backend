@@ -1,4 +1,4 @@
-from db import deta_db
+from db import db
 from schemas import user
 from utils.constants import USER_ROLES
 from utils.hashed import hashed_password
@@ -7,11 +7,11 @@ from repo.role_checker import RoleChecker
 from .approve_actions import WriteApproval
 
 
-db = deta_db.connect_to_deta_db("users")
+db = db.connect_to_db("users")
 allow_create_resource = RoleChecker(["admin"])
 
 def _parse_user(username:str, is_active:bool, user_status:str):
-    user = db.get(username)
+    user = dict(db.find_one({"username":username}))
     user["is_active"] = is_active
     user["status"] = user_status
     approval = WriteApproval(user, user_status)
@@ -22,7 +22,8 @@ def _parse_user(username:str, is_active:bool, user_status:str):
 def user_action(username:str, is_active:bool, user_status:str) -> user.User:
     try:
         user = _parse_user(username, is_active, user_status)
-        return db.put(user, key=user["username"])
+        db.update_one({"username":username}, {"$set":dict(user)})
+        return f"{username} is active: {str(is_active)}"
     except:
         return UserExceptions.raise_conflict("Cannot apply action on user")
 
