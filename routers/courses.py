@@ -30,3 +30,11 @@ async def change_course(request: course.Course) -> course.Course:
 @router.delete("/{name}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_course(name):
     return courses.delete_course(name)
+
+@router.post("/assign", status_code=status.HTTP_202_ACCEPTED)
+async def assign_user_to_course(course_name, username):
+    return courses.assign_to_course(course_name, username)
+
+@router.get("/{name}/students", status_code=status.HTTP_200_OK)
+async def get_students_from_course(name:str):
+    return courses.get_students_from_course(name)

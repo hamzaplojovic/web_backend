@@ -2,7 +2,6 @@ from schemas import user
 from datetime import datetime
 from utils.constants import USER_STATUS
 
-
 class WriteApproval:
     def __init__(self, user:user.User, status):
         self.user = user
