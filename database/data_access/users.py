@@ -1,9 +1,8 @@
-from . import db
 from schemas import user
+from database.db import connect_to_db
 from utils.hashed import hashed_password
 
-
-db = db.connect_to_db("users")
+db = connect_to_db("users")
 
 class UsersLayer:
     def get_all_users() -> list[dict]:
@@ -19,21 +18,20 @@ class UsersLayer:
         })
         return item
 
-    def delete_user(username:str) -> str:
-        db.delete_one({"username":username})
-        return f"User with username: {username} deleted"
+    def hard_delete_user(username:str) -> str:
+        return db.find_one_and_delete({"username":username})
 
     def get_user_by_username(username:str) -> dict:
         return db.find_one({"username":username})
     
-    def update_user_part(username:str, property: str, value:any) -> dict:
-        db.update_one({"username":username},{
+    def delete_user(username:str) -> any:
+        return db.find_one_and_update({"username":username}, {
             "$set":{
-                property: value
+                "is_active": False
             }
         })
-        return f"User with username: {username} deleted"
 
     def login(username:str, password: str) -> user.User:
         user = db.find_one({"username":username, "password": str(hashed_password(password))})
         return user
+
