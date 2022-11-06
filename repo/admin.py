@@ -1,10 +1,10 @@
 from schemas import user
-from db.data_access import UsersLayer
 from utils.constants import USER_ROLES
 from utils.hashed import hashed_password
 from repo.role_checker import RoleChecker
 from .approve_actions import WriteApproval
 from utils.exceptions import UserExceptions
+from database.data_access.users import UsersLayer
 
 allow_create_resource = RoleChecker(["admin"])
 
@@ -23,7 +23,7 @@ def _parse_user(username:str, is_active:bool, user_status:str):
 
 def _update_parsed_user(user:dict):
     UsersLayer.update_user("username", user)
-    return f"{user.username} is active: {user.is_active}"
+    return user["username"] + "is active: " + str(user["is_active"])
 
 
 def user_action(username:str, is_active:bool, user_status:str) -> user.User:

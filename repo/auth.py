@@ -1,6 +1,6 @@
 from datetime import timedelta
 from fastapi import Depends, Request
-from db.data_access import UsersLayer
+from database.data_access.users import UsersLayer
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from utils.jwt_handler import get_username_from_current_user, create_access_token
 

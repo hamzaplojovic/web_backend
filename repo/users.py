@@ -5,7 +5,7 @@ from utils.send_mail import Email
 from utils.hashed import hashed_password
 from utils.validation import user_creation
 from utils.exceptions import UserExceptions
-from db.data_access import UsersLayer
+from database.data_access.users import UsersLayer
 from utils.constants import USER_STATUS, USER_ROLES
 
 
@@ -74,14 +74,14 @@ def update_user(user: user.User) -> user.User:
 
 def delete_user(username:str) -> any:
     try:
-        UsersLayer.update_user_part(username, "is_active", False) 
+        UsersLayer.delete_user(username) 
     except:
         return UserExceptions.raise_conflict("Cannot delete user")
     
     
 def hard_delete_user(username:str) -> str:
     try:
-        UsersLayer.delete_user(username)
+        UsersLayer.hard_delete_user(username)
     except:
         return UserExceptions.raise_conflict("Cannot delete user")
 

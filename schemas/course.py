@@ -1,15 +1,12 @@
 from pydantic import BaseModel
 
-class CourseBase(BaseModel):
+class Course(BaseModel):
     name:str
     description:str
+    duration:str
     plan:list
     instructors:list
     students:list
     time:str
     appointment:str
     cover_image:str
-
-class Course(CourseBase):
-    class Config:
-        orm_mode = True

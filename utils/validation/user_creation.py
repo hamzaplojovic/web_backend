@@ -1,4 +1,4 @@
-from db import db
+from database import db
 from schemas.user import User
 
 db = db.connect_to_db("users")
