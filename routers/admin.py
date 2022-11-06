@@ -12,7 +12,6 @@ router = APIRouter(
     dependencies=[Depends(approved_roles)]
 )
 
-
 @router.get("/activate/{username}", status_code=status.HTTP_200_OK)
 async def activate(username: str) -> user.User:
     return admin.user_action(username, True, USER_STATUS["APPROVED"])
