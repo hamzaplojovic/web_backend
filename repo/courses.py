@@ -1,52 +1,43 @@
 from schemas import course
-from database.data_access.courses import CoursesLayer
+from logic.courses import CoursesLogic
 
-def _parse_course(course: course.Course):
-    course = dict(course)
-    course["_id"] = course["name"]
-
-    return course
+course_logic = CoursesLogic()
 
 def get_all():
-    return CoursesLayer.get_all_courses()
+    return course_logic.get_all_courses()
 
 def create_course(course: course.Course):
-    course = _parse_course(course)
-    return CoursesLayer.create_course(course)
+    return course_logic.create_course(course)
 
-def get_by_name(name:str):
-    return CoursesLayer.get_course_by_name(name)
+def get_by_name(course_name:str):
+    return course_logic.get_course_by_name(course_name)
 
 def update_course(course: course.Course):
-    return CoursesLayer.update_course(dict(course))
+    return course_logic.update_course(course)
 
-def delete_course(name:str):
-    return CoursesLayer.delete_course(name)
+def delete_course(course_name:str):
+    return course_logic.delete_course(course_name)
 
-def hard_delete_course(name:str):
-    return CoursesLayer.hard_delete_course(name)
+def hard_delete_course(course_name:str):
+    return course_logic.hard_delete_course(course_name)
 
 def get_students_from_course(course_name:str):
-    return CoursesLayer.get_students_from_course(course_name)
+    return course_logic.get_students_from_course(course_name)
 
 def assign_to_course(course_name:str, username:str):
-    return CoursesLayer.assign_user_to_course(course_name, username)
+    return course_logic.assign_user_to_course(course_name, username)
 
-def remove_student_from_course(username:str):
-    pass
+def remove_from_course(course_name:str, username:str):
+    return course_logic.remove_user_from_course(course_name, username)
 
-def add_lecture(course_name:str, lecture_name:str, lecture_description:str):
-    pass
+def add_lecture(course_name:str, lecture:course.Lecture):
+    return course_logic.add_lecture_to_course(course_name, lecture)
 
 def start_lecture(course_name:str, lecture_name:str):
-    pass
-
-def user_presence(course_name:str, username:str, is_present:bool):
-    pass
+    return course_logic.change_lecture_status(course_name, lecture_name, "started")
 
 def complete_lecture(course_name:str, lecture_name:str):
-    pass
+    return course_logic.change_lecture_status(course_name, lecture_name, "ended")
 
-def accept_payment():
-    pass
-
+def user_presence(course_name:str, lecture_name:str, username:str, is_present:bool):
+    return course_logic.user_presence(course_name, lecture_name, username, is_present)

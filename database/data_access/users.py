@@ -1,4 +1,5 @@
 from schemas import user
+from pymongo import ReturnDocument
 from database.db import connect_to_db
 from utils.hashed import hashed_password
 
@@ -9,14 +10,12 @@ class UsersLayer:
         return [x for x in db.find({})]
 
     def create_user(item: dict) -> dict:
-        db.insert_one(item)
-        return item
+        return db.insert_one(item)
     
     def update_user(query:str,item: dict) -> dict:
-        db.update_one({query: item[query]}, {
+        db.find_one_and_update({query: item[query]}, {
             "$set": item
-        })
-        return item
+        },return_document=ReturnDocument.AFTER)
 
     def hard_delete_user(username:str) -> str:
         return db.find_one_and_delete({"username":username})
@@ -29,9 +28,8 @@ class UsersLayer:
             "$set":{
                 "is_active": False
             }
-        })
+        },return_document=ReturnDocument.AFTER)
 
     def login(username:str, password: str) -> user.User:
-        user = db.find_one({"username":username, "password": str(hashed_password(password))})
-        return user
+        return db.find_one({"username":username, "password": str(hashed_password(password))})
 

@@ -10,3 +10,9 @@ class Course(BaseModel):
     time:str
     appointment:str
     cover_image:str
+
+class Lecture(BaseModel):
+    name:str
+    description:str
+    present:list
+    not_present:list
