@@ -11,3 +11,7 @@ class UserExceptions:
     def raise_conflict(message):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail=message)
+    
+    def raise_forbidden(message):
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
+                            detail=message)

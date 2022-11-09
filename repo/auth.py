@@ -1,31 +1,14 @@
-from datetime import timedelta
-from fastapi import Depends, Request
-from database.data_access.users import UsersLayer
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from utils.jwt_handler import get_username_from_current_user, create_access_token
+from logic import auth
+from fastapi import Request, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
+auth_logic = auth.AuthLogic()
 
-def _update_on_confirm(user:dict):
-    user["status"] = "received"
-    UsersLayer.update_user("username", user)
-    return f"Approved {user.username} that has confirmed email address"
-
-
-def _parse_token(credentials: OAuth2PasswordRequestForm):
-    access_token_expires = timedelta(minutes=30)
-    access_token = create_access_token(
-        data={"username": credentials.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-
-def get_current_user(request:Request, _:str = Depends(oauth2_scheme)):
-    return UsersLayer.get_user_by_username(get_username_from_current_user(request))
+def get_current_user(request:Request, _:str = Depends(auth.oauth2_scheme)):
+    return auth_logic.get_current_user(request)
 
 def login(form_data: OAuth2PasswordRequestForm):
-    return _parse_token(form_data)
+    return auth_logic.login(form_data)
 
-def approve_code(username:str) -> str:
-    user = UsersLayer.get_user_by_username(username)
-    return _update_on_confirm(user)
+def approve_code(username:str):
+    return auth_logic.approve_code(username)
