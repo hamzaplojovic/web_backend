@@ -23,5 +23,3 @@ def hard_delete_user(username:str) -> str:
 
 def login(username:str, password:str) -> any:
     return user_logic.login(username, password)
-
-
