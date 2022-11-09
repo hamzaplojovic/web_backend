@@ -2,7 +2,6 @@ import httpx
 from .constants import COLORS
 from collections import Counter
 
-
 def get_github_language_percentages(username:str) -> list:
     percentages = []
     languages = [x["language"] for x in httpx.get(f"https://api.github.com/users/{username}/repos").json()]
