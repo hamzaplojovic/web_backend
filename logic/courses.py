@@ -57,6 +57,6 @@ class CoursesLogic:
             if x["name"] == lecture_name:
                 present:list = x["present"] if is_present == True else x["not_present"]
                 [present.remove(x) for x in present if x == username]
-                present.append(username)  
+                present.append(username)
 
         return CoursesLayer.update_course(course)

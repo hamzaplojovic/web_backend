@@ -63,13 +63,12 @@ async def start_lecture(course_name:str, lecture_name:str, background_tasks: Bac
     background_tasks.add_task(courses.start_lecture, course_name, lecture_name)
     return f"Lecture {lecture_name} has started"
 
-@router.get("/{course_name}/endLecture", status_code=status.HTTP_200_OK)
+@router.get("/{course_name}/end_lecture", status_code=status.HTTP_200_OK)
 async def end_lecture(course_name:str, lecture_name:str, background_tasks: BackgroundTasks):
     background_tasks.add_task(courses.complete_lecture, course_name, lecture_name)
     return f"Lecture {lecture_name} has ended"
 
 @router.get("/{course_name}/{lecture_name}/present")
 async def user_presence(course_name:str, lecture_name:str, username:str, is_present:bool, background_tasks: BackgroundTasks):
-    # background_tasks.add_task(courses.user_presence, course_name, lecture_name, username, is_present)
-    courses.user_presence(course_name, lecture_name, username, is_present)
+    background_tasks.add_task(courses.user_presence, course_name, lecture_name, username, is_present)
     return f"{username} is present on lecture: {lecture_name} on course: {course_name}"
