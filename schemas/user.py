@@ -12,8 +12,7 @@ class UserBase(BaseModel):
     job: str
     role: str
     status:str
-    is_active: str
-    
+    is_active: str    
 
 class User(UserBase):
     avatar: Optional[str] = None
@@ -22,5 +21,3 @@ class User(UserBase):
     rejected_at: Optional[str] = None
     rejected_counter:Optional[int] = 0
 
-
-    
