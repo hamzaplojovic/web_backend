@@ -68,7 +68,7 @@ async def end_lecture(course_name:str, lecture_name:str, background_tasks: Backg
     background_tasks.add_task(courses.complete_lecture, course_name, lecture_name)
     return f"Lecture {lecture_name} has ended"
 
-@router.get("/{course_name}/{lecture_name}/present")
-async def user_presence(course_name:str, lecture_name:str, username:str, is_present:bool, background_tasks: BackgroundTasks):
-    background_tasks.add_task(courses.user_presence, course_name, lecture_name, username, is_present)
-    return f"{username} is present on lecture: {lecture_name} on course: {course_name}"
+@router.post("/{course_name}/{lecture_name}/present")
+async def user_presence(request:course.Presence, background_tasks: BackgroundTasks):
+    background_tasks.add_task(courses.user_presence, request)
+    return request.username + " is present at lecture: "+ request.lecture_name + " at course: " + request.course_name

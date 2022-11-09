@@ -39,5 +39,5 @@ def start_lecture(course_name:str, lecture_name:str):
 def complete_lecture(course_name:str, lecture_name:str):
     return course_logic.change_lecture_status(course_name, lecture_name, "ended")
 
-def user_presence(course_name:str, lecture_name:str, username:str, is_present:bool):
-    return course_logic.user_presence(course_name, lecture_name, username, is_present)
+def user_presence(request:any):
+    return course_logic.user_presence(dict(request))

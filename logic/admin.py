@@ -1,6 +1,5 @@
 from schemas import user
 from utils.constants import USER_ROLES
-from utils.hashed import hashed_password
 from utils.exceptions import UserExceptions
 from repo.approve_actions import WriteApproval
 from database.data_access.users import UsersLayer
