@@ -4,7 +4,7 @@ from utils.validation import user_creation
 from database.data_access.users import UsersLayer
 from utils import github, hashed, send_mail, exceptions, constants
 
-user_exceptions = exceptions.UserExceptions
+user_exceptions = exceptions.UserExceptions()
 
 class UserLogic:
     def _parse_user(self, user:user.User):
