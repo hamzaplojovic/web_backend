@@ -5,9 +5,9 @@ USER_STATUS = {
     "BANNED": "banned"
 }
 USER_ROLES = {
-    "ADMIN":"admin",
-    "INSTRUCTOR":"instructor",
-    "STUDENT":"student"
+    "ADMIN": "admin",
+    "INSTRUCTOR": "instructor",
+    "STUDENT": "student"
 }
 COLORS = {
     "1C Enterprise": "#814ccc",
@@ -254,5 +254,5 @@ COLORS = {
     "Zephir": "#118f9e",
     "Zig": "#ec915c",
     "ZIL": "#dc75e5",
-    "None":"gray"
+    "None": "gray"
 }

@@ -9,6 +9,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 ALGORITHM = os.environ["JWT_ALGORITHM"]
 SECRET_KEY = os.environ["JWT_SECRET_KEY"]
 
+
 def create_access_token(data: dict, expires_delta: timedelta or None = None):
     to_encode = data.copy()
     if expires_delta:
@@ -21,6 +22,7 @@ def create_access_token(data: dict, expires_delta: timedelta or None = None):
 
 
 def get_username_from_current_user(request):
-    payload = jwt.decode(request.headers['authorization'].
-                         split(' ')[1], SECRET_KEY, algorithms=[ALGORITHM])
+    payload = jwt.decode(request.headers['authorization'].split(' ')[1],
+                         SECRET_KEY,
+                         algorithms=[ALGORITHM])
     return dict(payload)["username"]
