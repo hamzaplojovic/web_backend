@@ -61,7 +61,6 @@ class UserLogic:
         try:
             user.password = hashed.hashed_password(user.password)
             UsersLayer.update_user("username", dict(user))
-
         except:
             return user_exceptions.raise_conflict("Cannot update user")
 

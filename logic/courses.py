@@ -51,12 +51,18 @@ class CoursesLogic:
                 x["status"] = lecture_status
         return CoursesLayer.update_course(course)
     
-    def user_presence(self, course_name:str, lecture_name:str, username:str, is_present:bool):
-        course = CoursesLayer.get_course_by_name(course_name)
+    def user_presence(self, request:any):
+        course = CoursesLayer.get_course_by_name(request["course_name"])
         for x in course["plan"]:
-            if x["name"] == lecture_name:
-                present:list = x["present"] if is_present == True else x["not_present"]
-                [present.remove(x) for x in present if x == username]
-                present.append(username)
-
-        return CoursesLayer.update_course(course)
+            if x["name"] == request["lecture_name"]:
+                if x["status"] == "started":
+                    present:list = x["present"] if request["is_present"] == True else x["not_present"]
+                    not_present:list = x["not_present"] if request["is_present"] == True else x["present"]
+                    [present.remove(x) for x in present if x == request["username"]]
+                    present.append(request["username"])
+                    try:
+                        not_present.remove(request["username"])
+                    except:
+                        pass
+                    return CoursesLayer.update_course(course)
+        return None

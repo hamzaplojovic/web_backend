@@ -16,3 +16,9 @@ class Lecture(BaseModel):
     description:str
     present:list
     not_present:list
+
+class Presence(BaseModel):
+    course_name:str
+    lecture_name:str
+    username:str
+    is_present:bool

@@ -19,4 +19,3 @@ class User(UserBase):
     approved_at: Optional[str] = None
     rejected_at: Optional[str] = None
     rejected_counter:Optional[int] = 0
-
