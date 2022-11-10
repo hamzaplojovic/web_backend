@@ -15,24 +15,29 @@ class UsersLayer:
     def create_user(item: dict) -> dict:
         return db.insert_one(item)
 
-    def update_user(self, query: str, item: dict) -> dict:
+    @staticmethod
+    def update_user(query: str, item: dict) -> dict:
         db.find_one_and_update({query: item[query]}, {"$set": item},
                                return_document=ReturnDocument.AFTER)
 
-    def hard_delete_user(self, username: str) -> str:
+    @staticmethod
+    def hard_delete_user(username: str) -> str:
         return db.find_one_and_delete({"username": username})
 
-    def get_user_by_username(self, username: str) -> dict:
+    @staticmethod
+    def get_user_by_username(username: str) -> dict:
         return db.find_one({"username": username})
 
-    def delete_user(self, username: str) -> any:
+    @staticmethod
+    def delete_user(username: str) -> any:
         return db.find_one_and_update({"username": username},
                                       {"$set": {
                                           "is_active": False
                                       }},
                                       return_document=ReturnDocument.AFTER)
 
-    def login(self, username: str, password: str) -> user.User:
+    @staticmethod
+    def login(username: str, password: str) -> user.User:
         return db.find_one({
             "username": username,
             "password": str(hashed_password(password))

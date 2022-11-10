@@ -10,7 +10,8 @@ class CoursesLayer:
     def get_all_courses() -> list[dict]:
         return list(db.find({}))
 
-    def update_course_attribute(self, course_name: str, attribute: str,
+    @staticmethod
+    def update_course_attribute(course_name: str, attribute: str,
                                 value: any):
         return db.find_one_and_update({"name": course_name},
                                       {"$set": {
