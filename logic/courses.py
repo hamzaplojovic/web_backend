@@ -1,11 +1,11 @@
-from schemas import course
+from schemas.course import Course
 from database.data_access.courses import CoursesLayer
 
 
 class CoursesLogic:
 
     @staticmethod
-    def _parse_course(course: course.Course):
+    def _parse_course(course: Course):
         course = dict(course)
         course["_id"] = course["name"]
         return course
@@ -18,12 +18,12 @@ class CoursesLogic:
     def get_course_by_name(course_name: str):
         return CoursesLayer.get_course_by_name(course_name)
 
-    def create_course(self, course: course.Course):
+    def create_course(self, course: Course):
         course = self._parse_course(course)
         return CoursesLayer.create_course(course)
 
     @staticmethod
-    def update_course(course: course.Course):
+    def update_course(course: Course):
         return CoursesLayer.update_course(dict(course))
 
     @staticmethod
@@ -78,7 +78,7 @@ class CoursesLogic:
                 present.append(request["username"])
                 try:
                     not_present.remove(request["username"])
-                except:
+                except Exception:
                     pass
                 return CoursesLayer.update_course(course)
         return None
