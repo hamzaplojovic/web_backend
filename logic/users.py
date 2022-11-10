@@ -42,7 +42,7 @@ class UserLogic:
             return [self._user_in_db(x) for x in UsersLayer.get_all_users()]
 
     def create_user(self, user:user.User) -> any:
-        if user_creation.validate_existence(user) != False:
+        if user_creation.validate_existence(user) is not False:
             return user_exceptions.raise_conflict("User already exists")
         try:
             parsed_user = self._parse_user(user)

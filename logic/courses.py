@@ -56,8 +56,8 @@ class CoursesLogic:
         for x in course["plan"]:
             if x["name"] == request["lecture_name"]:
                 if x["status"] == "started":
-                    present:list = x["present"] if request["is_present"] == True else x["not_present"]
-                    not_present:list = x["not_present"] if request["is_present"] == True else x["present"]
+                    present:list = x["present"] if request["is_present"] is True else x["not_present"]
+                    not_present:list = x["not_present"] if request["is_present"] is True else x["present"]
                     [present.remove(x) for x in present if x == request["username"]]
                     present.append(request["username"])
                     try:
