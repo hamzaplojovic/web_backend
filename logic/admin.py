@@ -5,12 +5,14 @@ from repo.approve_actions import WriteApproval
 from database.data_access.users import UsersLayer
 
 class AdminLogic:
-    def _instructor_from_user(self, user:dict):
+    @staticmethod
+    def _instructor_from_user(user:dict):
         user["role"] = USER_ROLES["INSTRUCTOR"]
         UsersLayer.update_user("username", user)
         return f"{user.username} is now instructor"
 
-    def _parse_user(self, username:str, is_active:bool, user_status:str):
+    @staticmethod
+    def _parse_user(username:str, is_active:bool, user_status:str):
         user = UsersLayer.get_user_by_username(username)
         user["is_active"] = is_active
         user["status"] = user_status
@@ -18,7 +20,8 @@ class AdminLogic:
         approval.write_approval()
         return user
 
-    def _update_parsed_user(self, user:dict):
+    @staticmethod
+    def _update_parsed_user(user:dict):
         UsersLayer.update_user("username", user)
         return user["username"] + "is active: " + str(user["is_active"])
     
