@@ -4,7 +4,7 @@ from pymongo import ReturnDocument
 db = connect_to_db("courses")
 
 class CoursesLayer:
-    def get_all_courses() -> list[dict]:
+    def get_all_courses(self) -> list[dict]:
         return [x for x in db.find({})]
     
     def update_course_attribute(course_name:str, attribute:str, value:any):
