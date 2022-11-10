@@ -6,7 +6,8 @@ from utils.hashed import hashed_password
 db = connect_to_db("users")
 
 class UsersLayer:
-    def get_all_users(self) -> list[dict]:
+    @staticmethod
+    def get_all_users() -> list[dict]:
         return [x for x in db.find({})]
 
     def create_user(item: dict) -> dict:
