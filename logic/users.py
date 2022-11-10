@@ -7,6 +7,7 @@ from utils import github, hashed, send_mail, exceptions, constants
 user_exceptions = exceptions.UserExceptions()
 data_layer = UsersLayer()
 
+
 class UserLogic:
 
     @staticmethod
@@ -90,4 +91,4 @@ class UserLogic:
         try:
             return data_layer.login(username, password)
         except:
-            return user_exceptions.raise_not_found("User not found")    
+            return user_exceptions.raise_not_found("User not found")
