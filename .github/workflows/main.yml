@@ -1,7 +1,5 @@
 name: Deploy to Deta
 on: push
-env:
-  DETA_TOKEN: AS9tbuj2_5GZYsK2NYEvYrtAAXAtp5uNk4PTjAavN
 
 jobs:
   deploy:
@@ -10,6 +8,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: BogDAAAMN/deta-deploy-action@v1.0.1
         with:
-          deta-access-token: "$DETA_TOKEN"
+          deta-access-token: ${{ secrets.DETA_TOKEN }}
           deta-name: "api"
           deta-project: "centarnit"
