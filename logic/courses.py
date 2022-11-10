@@ -75,9 +75,6 @@ class CoursesLogic:
                     "is_present"] is True else x["not_present"]
                 not_present: list = x["not_present"] if request[
                     "is_present"] is True else x["present"]
-                for x in present:
-                    if x == request["username"]:
-                        present.remove(x)
                 present.append(request["username"])
                 try:
                     not_present.remove(request["username"])
