@@ -8,7 +8,7 @@ db = connect_to_db("users")
 class UsersLayer:
     @staticmethod
     def get_all_users() -> list[dict]:
-        return [x for x in db.find({})]
+        return list(db.find({}))
 
     def create_user(item: dict) -> dict:
         return db.insert_one(item)
