@@ -11,8 +11,7 @@ class CoursesLayer:
         return list(db.find({}))
 
     @staticmethod
-    def update_course_attribute(course_name: str, attribute: str,
-                                value: any):
+    def update_course_attribute(course_name: str, attribute: str, value: any):
         return db.find_one_and_update({"name": course_name},
                                       {"$set": {
                                           attribute: value
