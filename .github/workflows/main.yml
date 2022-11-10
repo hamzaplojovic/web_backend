@@ -5,7 +5,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy project on Deta
       - uses: actions/checkout@v2
       - uses: BogDAAAMN/deta-deploy-action@v1.0.1
         with:
