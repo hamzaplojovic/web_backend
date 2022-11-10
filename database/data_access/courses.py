@@ -6,7 +6,7 @@ db = connect_to_db("courses")
 class CoursesLayer:
     @staticmethod
     def get_all_courses() -> list[dict]:
-        return [x for x in db.find({})]
+        return list(db.find({}))
     
     def update_course_attribute(course_name:str, attribute:str, value:any):
         return db.find_one_and_update({"name":course_name}, {
