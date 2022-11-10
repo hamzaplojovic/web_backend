@@ -10,5 +10,5 @@ class RoleChecker:
 
     def __call__(self, user: user.User = Depends(auth.get_current_user)):
         if user["role"] not in self.allowed_roles:
-            return UserExceptions.raise_forbidden("Operation forbidden")
+            return UserExceptions().raise_forbidden("Operation forbidden")
         return 200

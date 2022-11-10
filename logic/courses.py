@@ -10,7 +10,7 @@ class CoursesLogic:
     
     @staticmethod
     def get_all_courses() -> list[dict]:
-        return CoursesLayer.get_all_courses()
+        return CoursesLayer().get_all_courses()
     
     @staticmethod
     def get_course_by_name(course_name:str):
