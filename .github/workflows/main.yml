@@ -8,6 +8,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: BogDAAAMN/deta-deploy-action@v1.0.1
         with:
-          deta-access-token: ${{ secrets.DETA_TOKEN }}
+          deta-access-token: a063wuxg_pAVKrzvwekP886HKzPbmRXr5vZRLquS4
           deta-name: 'api'
           deta-project: 'centarnit'
