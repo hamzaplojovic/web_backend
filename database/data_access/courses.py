@@ -17,7 +17,7 @@ class CoursesLayer:
                                           attribute: value
                                       }},
                                       return_document=ReturnDocument.AFTER)
-    
+
     @staticmethod
     def create_course(item: dict) -> dict:
         return db.insert_one(item)
@@ -37,7 +37,7 @@ class CoursesLayer:
         course["is_active"] = False
         db.update_one({"name": course_name}, {"$set": course})
         return course
-    
+
     @staticmethod
     def hard_delete_course(course_name: str):
         return db.find_one_and_delete({"name": course_name})
