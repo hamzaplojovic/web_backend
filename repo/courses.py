@@ -3,6 +3,7 @@ from logic.courses import CoursesLogic
 
 courses_logic = CoursesLogic()
 
+
 def get_all():
     return courses_logic.get_all_courses()
 
