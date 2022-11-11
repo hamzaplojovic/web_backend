@@ -32,7 +32,7 @@ class AdminLogic:
         try:
             user = self._parse_user(username, is_active, user_status)
             return self._update_parsed_user(user)
-        except Exception:
+        except (RuntimeError, ValueError, TypeError, NameError):
             return UserExceptions.raise_conflict("Cannot apply action on user")
 
     def make_instructor(self, username: str) -> User:

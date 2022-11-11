@@ -78,7 +78,7 @@ class CoursesLogic:
                 present.append(request["username"])
                 try:
                     not_present.remove(request["username"])
-                except Exception:
+                except (SyntaxError, RuntimeError, ValueError, TypeError):
                     pass
                 return CoursesLayer.update_course(course)
         return None

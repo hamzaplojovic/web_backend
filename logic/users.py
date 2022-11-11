@@ -4,7 +4,7 @@ from utils.validation import user_creation
 from database.data_access.users import UsersLayer
 from utils import github, hashed, send_mail, exceptions, constants
 
-user_exceptions = exceptions.UserExceptions()
+user_exceptions = exceptions.UserExceptions
 
 
 class UserLogic:
@@ -43,8 +43,8 @@ class UserLogic:
     def get_all_users(self) -> list[dict]:
         try:
             return [self._user_in_db(x) for x in UsersLayer.get_all_users()]
-        except Exception:
-            return [self._user_in_db(x) for x in UsersLayer.get_all_users()]
+        except (RuntimeError, TypeError, NameError):
+            return user_exceptions.raise_conflict("Cannot get users")
 
     def create_user(self, user: User) -> any:
         if user_creation.validate_existence(user) is not False:
@@ -52,7 +52,7 @@ class UserLogic:
         try:
             parsed_user = self._parse_user(user)
             UsersLayer.create_user(parsed_user)
-        except Exception:
+        except (ValueError, TypeError, RuntimeError):
             return user_exceptions.raise_conflict("Cannot create user")
 
     @staticmethod
@@ -60,7 +60,7 @@ class UserLogic:
         try:
             user = UsersLayer.get_user_by_username(username)
             return user
-        except Exception:
+        except (SyntaxError, TypeError, RuntimeError):
             return user_exceptions.raise_not_found("User not found")
 
     @staticmethod
@@ -68,26 +68,26 @@ class UserLogic:
         try:
             user.password = hashed.hashed_password(user.password)
             UsersLayer.update_user("username", dict(user))
-        except Exception:
+        except (NameError, TypeError, RuntimeError):
             return user_exceptions.raise_conflict("Cannot update user")
 
     @staticmethod
     def delete_user(username: str):
         try:
             UsersLayer.delete_user(username)
-        except Exception:
+        except (TypeError, NameError, RuntimeError):
             return user_exceptions.raise_conflict("Cannot delete user")
 
     @staticmethod
     def hard_delete_user(username: str):
         try:
             UsersLayer.hard_delete_user(username)
-        except Exception:
+        except (SyntaxError, TypeError, RuntimeError):
             return user_exceptions.raise_conflict("Cannot delete user")
 
     @staticmethod
     def login(username: str, password: str):
         try:
             return UsersLayer.login(username, password)
-        except Exception:
+        except (RuntimeError, TypeError, NameError):
             return user_exceptions.raise_not_found("User not found")

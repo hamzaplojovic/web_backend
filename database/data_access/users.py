@@ -10,7 +10,7 @@ class UsersLayer:
 
     @staticmethod
     def get_all_users() -> list[dict]:
-        return list(db.find({}))
+        return db.find()
 
     @staticmethod
     def create_user(item: dict) -> dict:
