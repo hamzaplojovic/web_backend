@@ -8,6 +8,7 @@ user_exceptions = exceptions.UserExceptions
 
 
 class UserLogic:
+
     def _parse_user(self, user: User):
         user.avatar = github.get_github_avatar_url(user.github)
         user.languages = github.get_github_language_percentages(user.github)

@@ -5,10 +5,12 @@ db = connect_to_db("courses")
 
 
 class CoursesLayer:
+
     def get_all_courses(self) -> list[dict]:
         return list(db.find({}))
 
-    def update_course_attribute(self, course_name: str, attribute: str, value: any):
+    def update_course_attribute(self, course_name: str, attribute: str,
+                                value: any):
         return db.find_one_and_update({"name": course_name},
                                       {"$set": {
                                           attribute: value
