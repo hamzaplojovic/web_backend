@@ -6,6 +6,7 @@ from database.data_access.users import UsersLayer
 
 data_layer = UsersLayer()
 
+
 class AdminLogic:
 
     @staticmethod

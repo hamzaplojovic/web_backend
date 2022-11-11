@@ -3,7 +3,9 @@ from database.data_access.courses import CoursesLayer
 
 data_layer = CoursesLayer()
 
+
 class CoursesLogic:
+
     def _parse_course(self, course: Course):
         course = dict(course)
         course["_id"] = course["name"]
