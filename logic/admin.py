@@ -4,18 +4,19 @@ from utils.exceptions import UserExceptions
 from repo.approve_actions import WriteApproval
 from database.data_access.users import UsersLayer
 
+data_layer = UsersLayer()
 
 class AdminLogic:
 
     @staticmethod
     def _instructor_from_user(user: dict):
         user["role"] = USER_ROLES["INSTRUCTOR"]
-        UsersLayer.update_user("username", user)
+        data_layer.update_user("username", user)
         return f"{user.username} is now instructor"
 
     @staticmethod
     def _parse_user(username: str, is_active: bool, user_status: str):
-        user = UsersLayer.get_user_by_username(username)
+        user = data_layer.get_user_by_username(username)
         user["is_active"] = is_active
         user["status"] = user_status
         approval = WriteApproval(user, user_status)
@@ -24,7 +25,7 @@ class AdminLogic:
 
     @staticmethod
     def _update_parsed_user(user: dict):
-        UsersLayer.update_user("username", user)
+        data_layer.update_user("username", user)
         return user["username"] + "is active: " + str(user["is_active"])
 
     def user_action(self, username: str, is_active: bool,
@@ -36,5 +37,5 @@ class AdminLogic:
             return UserExceptions.raise_conflict("Cannot apply action on user")
 
     def make_instructor(self, username: str) -> User:
-        user = UsersLayer.get_user_by_username(username)
+        user = data_layer.get_user_by_username(username)
         return self._instructor_from_user(user)
