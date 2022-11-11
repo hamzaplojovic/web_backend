@@ -2,7 +2,6 @@ from schemas.course import Course, Lecture
 from logic.courses import CoursesLogic
 
 
-
 def get_all():
     return CoursesLogic.get_all_courses()
 
