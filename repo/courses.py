@@ -46,12 +46,12 @@ def add_lecture(course_name: str, lecture: Lecture):
 
 def start_lecture(course_name: str, lecture_name: str):
     return courses_logic.change_lecture_status(course_name, lecture_name,
-                                              "started")
+                                               "started")
 
 
 def complete_lecture(course_name: str, lecture_name: str):
     return courses_logic.change_lecture_status(course_name, lecture_name,
-                                              "ended")
+                                               "ended")
 
 
 def user_presence(request: any):
