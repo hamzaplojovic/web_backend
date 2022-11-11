@@ -1,4 +1,4 @@
-from schemas import user
+from schemas.user import User
 from utils.constants import USER_ROLES
 from utils.exceptions import UserExceptions
 from repo.approve_actions import WriteApproval
@@ -28,13 +28,13 @@ class AdminLogic:
         return user["username"] + "is active: " + str(user["is_active"])
 
     def user_action(self, username: str, is_active: bool,
-                    user_status: str) -> user.User:
+                    user_status: str) -> User:
         try:
             user = self._parse_user(username, is_active, user_status)
             return self._update_parsed_user(user)
-        except:
+        except (RuntimeError, ValueError, TypeError, NameError):
             return UserExceptions.raise_conflict("Cannot apply action on user")
 
-    def make_instructor(self, username: str) -> user.User:
+    def make_instructor(self, username: str) -> User:
         user = UsersLayer.get_user_by_username(username)
         return self._instructor_from_user(user)
