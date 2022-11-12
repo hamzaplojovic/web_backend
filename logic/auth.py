@@ -7,6 +7,7 @@ from utils.jwt_handler import get_username_from_current_user, create_access_toke
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 data_layer = UsersLayer()
 
+
 class AuthLogic:
 
     @staticmethod
