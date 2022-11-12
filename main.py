@@ -14,7 +14,8 @@ app.add_middleware(
 
 app.include_router(messages.router)
 app.include_router(auth.router)
-app.include_router(coworking.router)
 app.include_router(admin.router)
 app.include_router(users.router)
 app.include_router(courses.router)
+app.include_router(coworking.router)
+
